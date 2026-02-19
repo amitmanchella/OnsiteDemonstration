@@ -1,0 +1,34 @@
+<div class="loans-page">
+  <div class="page-header">
+    <h2>Loans</h2>
+    <button class="btn-primary" routerLink="/loans/new">+ New Application</button>
+  </div>
+
+  <div class="filters">
+    <label>Status Filter:</label>
+    <select [(ngModel)]="filterStatus">
+      <option value="all">All</option>
+      <option value="pending">Pending</option>
+      <option value="approved">Approved</option>
+      <option value="active">Active</option>
+      <option value="rejected">Rejected</option>
+      <option value="closed">Closed</option>
+    </select>
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    Loading loans...
+  </div>
+
+  <app-data-table
+    *ngIf="!loading"
+    [data]="filteredLoans"
+    [columns]="columns"
+    [pageSize]="10"
+  >
+    <ng-template #rowActions let-loan>
+      <button class="btn-view" (click)="viewLoan(loan.id)">View</button>
+      <button class="btn-edit" *ngIf="loan.status === 'pending'">Edit</button>
+    </ng-template>
+  </app-data-table>
+</div>

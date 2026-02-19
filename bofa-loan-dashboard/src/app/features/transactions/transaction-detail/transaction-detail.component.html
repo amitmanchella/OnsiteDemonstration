@@ -1,0 +1,42 @@
+<div class="transaction-detail-page" *ngIf="!loading && transaction">
+  <div class="page-header">
+    <h2>Transaction Details</h2>
+    <a routerLink="/transactions" class="back-link">← Back to Transactions</a>
+  </div>
+
+  <div class="detail-card">
+    <div class="detail-header">
+      <span class="transaction-type" [class]="'type-' + transaction.type">{{ transaction.type }}</span>
+      <span class="transaction-status" [class]="'status-' + transaction.status">{{ transaction.status }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="label">Transaction ID:</span>
+      <span class="value">{{ transaction.id }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="label">Loan ID:</span>
+      <span class="value">{{ transaction.loanId }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="label">Amount:</span>
+      <span class="value amount" [class.negative]="transaction.type === 'payment'">
+        {{ transaction.type === 'payment' ? '-' : '+' }}{{ transaction.amount | currencyFormat }}
+      </span>
+    </div>
+
+    <div class="detail-row">
+      <span class="label">Date:</span>
+      <span class="value">{{ transaction.date | date:'fullDate' }}</span>
+    </div>
+
+    <div class="detail-row description">
+      <span class="label">Description:</span>
+      <span class="value">{{ transaction.description }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="loading" *ngIf="loading">Loading transaction details...</div>

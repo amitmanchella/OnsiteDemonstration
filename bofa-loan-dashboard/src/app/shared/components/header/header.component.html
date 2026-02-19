@@ -1,0 +1,30 @@
+<header class="header">
+  <div class="logo">
+    <h1>BofA Loan Operations</h1>
+  </div>
+
+  <div class="actions">
+    <div class="notification-container">
+      <button class="notification-button" (click)="toggleNotifications()">
+        <span class="bell-icon">🔔</span>
+        <span class="badge" *ngIf="(unreadCount$ | async) as count">
+          {{ count > 0 ? count : '' }}
+        </span>
+      </button>
+
+      <div #notificationPanel class="notification-panel" style="display: none;">
+        <h4>Notifications</h4>
+        <div class="notification-list">
+          <p class="no-notifications">No new notifications</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="user-menu">
+      <button class="user-button" (click)="logout()">
+        <span class="user-icon">👤</span>
+        <span class="logout-text">Logout</span>
+      </button>
+    </div>
+  </div>
+</header>

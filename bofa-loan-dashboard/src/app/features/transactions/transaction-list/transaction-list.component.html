@@ -1,0 +1,28 @@
+<div class="transactions-page">
+  <div class="page-header">
+    <h2>Transactions</h2>
+  </div>
+
+  <div class="filters">
+    <div class="date-filter">
+      <label>Date Range:</label>
+      <input type="date" [(ngModel)]="dateFilter.start" placeholder="Start Date" />
+      <span>to</span>
+      <input type="date" [(ngModel)]="dateFilter.end" placeholder="End Date" />
+      <button class="btn-filter" (click)="applyDateFilter()">Apply</button>
+    </div>
+  </div>
+
+  <div class="loading" *ngIf="loading">Loading transactions...</div>
+
+  <app-data-table
+    *ngIf="!loading"
+    [data]="transactions"
+    [columns]="columns"
+    [pageSize]="15"
+  >
+    <ng-template #rowActions let-transaction>
+      <button class="btn-view" [routerLink]="['/transactions', transaction.id]">View</button>
+    </ng-template>
+  </app-data-table>
+</div>

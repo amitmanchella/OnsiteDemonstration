@@ -1,0 +1,17 @@
+<!-- Show only router outlet for login page when not authenticated -->
+<ng-container *ngIf="!isAuthenticated()">
+  <router-outlet></router-outlet>
+</ng-container>
+
+<!-- Show full layout when authenticated -->
+<div class="app-layout" *ngIf="isAuthenticated()">
+  <app-header></app-header>
+
+  <div class="content-wrapper">
+    <app-sidebar></app-sidebar>
+
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<div class="loan-detail-page" *ngIf="!loading && loan">
+  <div class="page-header">
+    <h2>Loan Details</h2>
+    <a routerLink="/loans" class="back-link">← Back to Loans</a>
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-card applicant-info">
+      <h3>Applicant Information</h3>
+      <div class="info-row">
+        <span class="label">Name:</span>
+        <span class="value">{{ loan.applicantName }}</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Application Date:</span>
+        <span class="value">{{ loan.applicationDate | date:'mediumDate' }}</span>
+      </div>
+    </div>
+
+    <div class="detail-card loan-terms">
+      <h3>Loan Terms</h3>
+      <div class="info-row">
+        <span class="label">Amount:</span>
+        <span class="value">{{ loan.amount | currencyFormat }}</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Interest Rate:</span>
+        <span class="value">{{ loan.interestRate }}%</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Term:</span>
+        <span class="value">{{ loan.term }} months</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Type:</span>
+        <span class="value">{{ loan.type }}</span>
+      </div>
+    </div>
+
+    <div class="detail-card status-card">
+      <h3>Status & Risk</h3>
+      <div class="info-row">
+        <span class="label">Current Status:</span>
+        <span class="status-badge" [class]="'status-' + loan.status">{{ loan.status }}</span>
+      </div>
+      <div class="info-row" *ngIf="loan.approvedBy">
+        <span class="label">Approved By:</span>
+        <span class="value">{{ loan.approvedBy }}</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Risk Score:</span>
+        <span class="risk-score" [class.high]="loan.riskScore > 70">{{ loan.riskScore }}</span>
+      </div>
+
+      <div class="status-update" *ngIf="loan.status === 'pending'">
+        <label>Update Status:</label>
+        <select #statusSelect (change)="updateStatus(statusSelect.value)">
+          <option value="">Select...</option>
+          <option value="approved">Approve</option>
+          <option value="rejected">Reject</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="transactions-section">
+    <h3>Transaction History</h3>
+    <table class="transactions-table" *ngIf="transactions.length">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tx of transactions">
+          <td>{{ tx.date | date:'mediumDate' }}</td>
+          <td>{{ tx.type }}</td>
+          <td>{{ tx.description }}</td>
+          <td>{{ tx.amount | currencyFormat }}</td>
+          <td>
+            <span class="tx-status" [class]="'tx-' + tx.status">{{ tx.status }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="no-data" *ngIf="!transactions.length">No transactions found</p>
+  </div>
+</div>
+
+<div class="loading" *ngIf="loading">Loading loan details...</div>

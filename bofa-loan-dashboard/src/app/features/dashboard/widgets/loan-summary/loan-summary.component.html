@@ -1,0 +1,31 @@
+<div class="loan-summary-widget">
+  <h3>Loan Summary</h3>
+
+  <div class="loading" *ngIf="loading">
+    Loading...
+  </div>
+
+  <div class="error" *ngIf="error">
+    {{ error }}
+  </div>
+
+  <div class="stats-grid" *ngIf="!loading && !error">
+    <div class="stat-card">
+      <div class="stat-icon">✓</div>
+      <div class="stat-value">{{ totalActive }}</div>
+      <div class="stat-label">Active Loans</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">⏳</div>
+      <div class="stat-value">{{ totalPending }}</div>
+      <div class="stat-label">Pending</div>
+    </div>
+
+    <div class="stat-card total">
+      <div class="stat-icon">💰</div>
+      <div class="stat-value">{{ totalAmount | currencyFormat }}</div>
+      <div class="stat-label">Total Portfolio</div>
+    </div>
+  </div>
+</div>

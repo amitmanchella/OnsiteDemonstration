@@ -1,0 +1,37 @@
+<aside class="sidebar">
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLink="/dashboard"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="nav-icon">📊</span>
+          <span class="nav-text">Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLink="/loans"
+          routerLinkActive="active"
+        >
+          <span class="nav-icon">💰</span>
+          <span class="nav-text">Loans</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLink="/transactions"
+          routerLinkActive="active"
+        >
+          <span class="nav-icon">💳</span>
+          <span class="nav-text">Transactions</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</aside>

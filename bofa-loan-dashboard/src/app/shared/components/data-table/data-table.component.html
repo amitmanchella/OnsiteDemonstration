@@ -1,0 +1,56 @@
+<div class="data-table-wrapper">
+  <div #tableContainer class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th *ngFor="let column of columns">{{ column.label }}</th>
+          <th *ngIf="rowActionsTemplate">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of paginatedData; let i = index" [class.even]="i % 2 === 0">
+          <td *ngFor="let column of columns">
+            <ng-container *ngIf="column.type === 'status'">
+              <span [class]="'status-badge ' + getStatusClass(row[column.key])">
+                {{ row[column.key] }}
+              </span>
+            </ng-container>
+            <ng-container *ngIf="column.type !== 'status'">
+              {{ formatValue(row[column.key], column.type) }}
+            </ng-container>
+          </td>
+          <td *ngIf="rowActionsTemplate" class="actions-cell">
+            <ng-container *ngTemplateOutlet="rowActionsTemplate; context: { $implicit: row }"></ng-container>
+          </td>
+        </tr>
+        <tr *ngIf="paginatedData.length === 0">
+          <td [attr.colspan]="columns.length + (rowActionsTemplate ? 1 : 0)" class="no-data">
+            No data available
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination" *ngIf="data.length > pageSize">
+    <button
+      class="pagination-button"
+      (click)="prevPage()"
+      [disabled]="currentPage === 1"
+    >
+      ← Previous
+    </button>
+
+    <span class="pagination-info">
+      Page {{ currentPage }} of {{ totalPages }}
+    </span>
+
+    <button
+      class="pagination-button"
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+    >
+      Next →
+    </button>
+  </div>
+</div>

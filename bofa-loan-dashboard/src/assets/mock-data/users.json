@@ -1,0 +1,26 @@
+[
+  {
+    "id": "usr-001",
+    "username": "jsmith",
+    "email": "john.smith@bofa.com",
+    "role": "loan_officer",
+    "firstName": "John",
+    "lastName": "Smith"
+  },
+  {
+    "id": "usr-002",
+    "username": "mgarcia",
+    "email": "maria.garcia@bofa.com",
+    "role": "manager",
+    "firstName": "Maria",
+    "lastName": "Garcia"
+  },
+  {
+    "id": "usr-003",
+    "username": "rwang",
+    "email": "robert.wang@bofa.com",
+    "role": "admin",
+    "firstName": "Robert",
+    "lastName": "Wang"
+  }
+]

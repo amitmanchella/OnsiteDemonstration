@@ -1,0 +1,67 @@
+.loan-summary-widget {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+}
+
+.loan-summary-widget h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 32px;
+  color: #666;
+}
+
+.error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-radius: 4px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.stat-card {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  border-left: 4px solid #012169;
+}
+
+.stat-card.total {
+  border-left-color: #28a745;
+  background-color: #f0f9f4;
+}
+
+.stat-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #012169;
+  margin-bottom: 4px;
+}
+
+.stat-card.total .stat-value {
+  color: #28a745;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

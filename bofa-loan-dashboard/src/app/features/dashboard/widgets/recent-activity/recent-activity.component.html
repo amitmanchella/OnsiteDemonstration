@@ -1,0 +1,30 @@
+<div class="recent-activity-widget">
+  <h3>Recent Activity</h3>
+
+  <div class="loading" *ngIf="loading">
+    Loading...
+  </div>
+
+  <div class="error" *ngIf="error">
+    {{ error }}
+  </div>
+
+  <ul class="activity-list" *ngIf="!loading && !error">
+    <li *ngFor="let transaction of recentTransactions$ | async" class="activity-item">
+      <div class="activity-type" [class]="'type-' + transaction.type">
+        {{ transaction.type }}
+      </div>
+      <div class="activity-details">
+        <div class="activity-description">{{ transaction.description }}</div>
+        <div class="activity-date">{{ transaction.date | date:'mediumDate' }}</div>
+      </div>
+      <div class="activity-amount" [class.negative]="transaction.type === 'payment'">
+        {{ transaction.type === 'payment' ? '-' : '+' }}{{ transaction.amount | currencyFormat }}
+      </div>
+    </li>
+  </ul>
+
+  <div class="empty-state" *ngIf="!(recentTransactions$ | async)?.length && !loading && !error">
+    No recent activity
+  </div>
+</div>
