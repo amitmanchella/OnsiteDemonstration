@@ -111,6 +111,6 @@ export class ApiService {
   }
 
   private handleError(error: any): Observable<never> {
-    return throwError(error.message || 'Server error');
+    return throwError(() => error.message || 'Server error');
   }
 }

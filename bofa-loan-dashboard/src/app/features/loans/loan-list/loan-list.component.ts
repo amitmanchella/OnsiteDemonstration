@@ -27,16 +27,16 @@ export class LoanListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.apiService.getLoans().subscribe(
-      (loans) => {
+    this.apiService.getLoans().subscribe({
+      next: (loans) => {
         this.loans = loans;
         this.loading = false;
       },
-      (error) => {
+      error: (error) => {
         console.error('Failed to load loans', error);
         this.loading = false;
       }
-    );
+    });
   }
 
   get filteredLoans(): Loan[] {

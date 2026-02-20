@@ -27,16 +27,16 @@ export class TransactionListComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.apiService.getTransactions().subscribe(
-      (transactions) => {
+    this.apiService.getTransactions().subscribe({
+      next: (transactions) => {
         this.transactions = transactions;
         this.loading = false;
       },
-      (error) => {
+      error: (error) => {
         console.error('Failed to load transactions', error);
         this.loading = false;
       }
-    );
+    });
   }
 
   applyDateFilter(): void {
@@ -45,8 +45,8 @@ export class TransactionListComponent implements OnInit {
       return;
     }
 
-    this.apiService.getTransactions().subscribe(
-      (transactions) => {
+    this.apiService.getTransactions().subscribe({
+      next: (transactions) => {
         this.transactions = transactions.filter(tx => {
           const txDate = new Date(tx.date);
           const start = this.dateFilter.start ? new Date(this.dateFilter.start) : null;
@@ -57,9 +57,9 @@ export class TransactionListComponent implements OnInit {
           return true;
         });
       },
-      (error) => {
+      error: (error) => {
         console.error('Failed to filter transactions', error);
       }
-    );
+    });
   }
 }

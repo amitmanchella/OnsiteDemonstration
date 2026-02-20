@@ -24,12 +24,12 @@ export class RecentActivityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.recentTransactions$.subscribe(
-      (transactions) => {},
-      (error) => {
+    this.recentTransactions$.subscribe({
+      next: (transactions) => {},
+      error: (error) => {
         this.error = error.message || 'Failed to load transactions';
         this.loading = false;
       }
-    );
+    });
   }
 }

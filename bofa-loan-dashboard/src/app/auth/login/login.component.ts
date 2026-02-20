@@ -30,15 +30,15 @@ export class LoginComponent {
     this.authService.login({
       username: this.username,
       password: this.password
-    }).subscribe(
-      (user) => {
+    }).subscribe({
+      next: (user) => {
         this.loading = false;
         this.router.navigate(['/dashboard']);
       },
-      (error) => {
+      error: (error) => {
         this.loading = false;
         this.errorMessage = error.message || 'Login failed. Please try again.';
       }
-    );
+    });
   }
 }

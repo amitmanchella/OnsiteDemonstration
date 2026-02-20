@@ -45,16 +45,16 @@ export class LoanApplicationComponent implements OnInit {
     this.loading = true;
     this.errorMessage = '';
 
-    this.apiService.createLoan(this.applicationForm.value).subscribe(
-      (loan) => {
+    this.apiService.createLoan(this.applicationForm.value).subscribe({
+      next: (loan) => {
         this.loading = false;
         this.router.navigate(['/loans', loan.id]);
       },
-      (error) => {
+      error: (error) => {
         this.loading = false;
         this.errorMessage = error.message || 'Failed to create loan application';
       }
-    );
+    });
   }
 
   get f() {

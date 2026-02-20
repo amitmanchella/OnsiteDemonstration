@@ -18,19 +18,19 @@ export class TransactionDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      (params) => {
-        this.apiService.getTransactionById(params['id']).subscribe(
-          (transaction) => {
+    this.route.params.subscribe({
+      next: (params) => {
+        this.apiService.getTransactionById(params['id']).subscribe({
+          next: (transaction) => {
             this.transaction = transaction;
             this.loading = false;
           },
-          (error) => {
+          error: (error) => {
             console.error('Failed to load transaction', error);
             this.loading = false;
           }
-        );
+        });
       }
-    );
+    });
   }
 }

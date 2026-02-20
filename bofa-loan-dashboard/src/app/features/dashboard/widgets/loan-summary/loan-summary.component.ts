@@ -27,16 +27,16 @@ export class LoanSummaryComponent implements OnInit {
       catchError((error) => {
         this.error = error.message || 'Failed to load loans';
         this.loading = false;
-        return throwError(error);
+        return throwError(() => error);
       })
     );
   }
 
   ngOnInit(): void {
-    this.loans$.subscribe(
-      (loans) => {},
-      (error) => {}
-    );
+    this.loans$.subscribe({
+      next: (loans) => {},
+      error: (error) => {}
+    });
   }
 
   private calculateStats(loans: Loan[]): void {
