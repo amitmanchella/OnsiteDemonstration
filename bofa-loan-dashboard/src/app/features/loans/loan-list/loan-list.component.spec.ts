@@ -1,8 +1,9 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
+
 import { LoanListComponent } from './loan-list.component';
-import { SharedModule } from '../../../../app/shared/shared.module';
 
 describe('LoanListComponent', () => {
   let component: LoanListComponent;
@@ -10,11 +11,11 @@ describe('LoanListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LoanListComponent],  // OLD pattern: declarations, not imports
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule,
-        SharedModule
+      imports: [LoanListComponent],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting()
       ]
     }).compileComponents();
   });

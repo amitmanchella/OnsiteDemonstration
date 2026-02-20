@@ -24,7 +24,7 @@ export class AuthService {
           return user;
         }),
         catchError((err) => {
-          return throwError(err);
+          return throwError(() => err);
         })
       );
   }

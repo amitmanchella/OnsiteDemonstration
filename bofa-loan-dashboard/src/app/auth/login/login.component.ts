@@ -1,9 +1,13 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [FormsModule, NgIf],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -30,15 +34,15 @@ export class LoginComponent {
     this.authService.login({
       username: this.username,
       password: this.password
-    }).subscribe(
-      (user) => {
+    }).subscribe({
+      next: (user) => {
         this.loading = false;
         this.router.navigate(['/dashboard']);
       },
-      (error) => {
+      error: (error) => {
         this.loading = false;
         this.errorMessage = error.message || 'Login failed. Please try again.';
       }
-    );
+    });
   }
 }
