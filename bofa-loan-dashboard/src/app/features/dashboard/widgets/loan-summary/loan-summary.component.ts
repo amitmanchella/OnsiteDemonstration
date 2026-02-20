@@ -1,11 +1,15 @@
+import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ApiService } from '../../../../core/services/api.service';
 import { Loan } from '../../../../core/models/loan.model';
+import { CurrencyFormatPipe } from '../../../../shared/pipes/currency-format.pipe';
 
 @Component({
   selector: 'app-loan-summary',
+  standalone: true,
+  imports: [NgIf, CurrencyFormatPipe],
   templateUrl: './loan-summary.component.html',
   styleUrls: ['./loan-summary.component.scss']
 })

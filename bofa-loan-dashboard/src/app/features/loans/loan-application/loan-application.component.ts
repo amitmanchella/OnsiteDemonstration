@@ -1,10 +1,13 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../../core/services/api.service';
 
 @Component({
   selector: 'app-loan-application',
+  standalone: true,
+  imports: [NgFor, NgIf, ReactiveFormsModule, RouterLink],
   templateUrl: './loan-application.component.html',
   styleUrls: ['./loan-application.component.scss']
 })

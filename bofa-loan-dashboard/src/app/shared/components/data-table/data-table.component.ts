@@ -1,3 +1,4 @@
+import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   Input,
@@ -17,6 +18,8 @@ export interface DataTableColumn {
 
 @Component({
   selector: 'app-data-table',
+  standalone: true,
+  imports: [NgFor, NgIf, NgTemplateOutlet],
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss']
 })

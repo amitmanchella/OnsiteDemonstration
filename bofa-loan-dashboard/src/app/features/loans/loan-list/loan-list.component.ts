@@ -1,10 +1,15 @@
+import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../../core/services/api.service';
 import { Loan } from '../../../core/models/loan.model';
+import { DataTableComponent } from '../../../shared/components/data-table/data-table.component';
 
 @Component({
   selector: 'app-loan-list',
+  standalone: true,
+  imports: [NgIf, FormsModule, RouterLink, DataTableComponent],
   templateUrl: './loan-list.component.html',
   styleUrls: ['./loan-list.component.scss']
 })

@@ -1,12 +1,16 @@
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { ApiService } from '../../../core/services/api.service';
 import { Loan } from '../../../core/models/loan.model';
 import { Transaction } from '../../../core/models/transaction.model';
+import { CurrencyFormatPipe } from '../../../shared/pipes/currency-format.pipe';
 
 @Component({
   selector: 'app-loan-detail',
+  standalone: true,
+  imports: [DatePipe, NgFor, NgIf, RouterLink, CurrencyFormatPipe],
   templateUrl: './loan-detail.component.html',
   styleUrls: ['./loan-detail.component.scss']
 })

@@ -1,10 +1,14 @@
+import { DatePipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ApiService } from '../../../core/services/api.service';
 import { Transaction } from '../../../core/models/transaction.model';
+import { CurrencyFormatPipe } from '../../../shared/pipes/currency-format.pipe';
 
 @Component({
   selector: 'app-transaction-detail',
+  standalone: true,
+  imports: [DatePipe, NgIf, RouterLink, CurrencyFormatPipe],
   templateUrl: './transaction-detail.component.html',
   styleUrls: ['./transaction-detail.component.scss']
 })

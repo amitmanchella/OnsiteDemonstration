@@ -1,3 +1,4 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -11,6 +12,8 @@ import { NotificationService } from '../../../core/services/notification.service
 
 @Component({
   selector: 'app-header',
+  standalone: true,
+  imports: [AsyncPipe, NgIf],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })

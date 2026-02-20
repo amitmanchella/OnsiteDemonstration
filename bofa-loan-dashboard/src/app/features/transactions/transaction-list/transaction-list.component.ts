@@ -1,9 +1,15 @@
+import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { ApiService } from '../../../core/services/api.service';
 import { Transaction } from '../../../core/models/transaction.model';
+import { DataTableComponent } from '../../../shared/components/data-table/data-table.component';
 
 @Component({
   selector: 'app-transaction-list',
+  standalone: true,
+  imports: [NgIf, FormsModule, RouterLink, DataTableComponent],
   templateUrl: './transaction-list.component.html',
   styleUrls: ['./transaction-list.component.scss']
 })

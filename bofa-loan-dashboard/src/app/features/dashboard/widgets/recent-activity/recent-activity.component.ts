@@ -1,11 +1,15 @@
+import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from '../../../../core/services/api.service';
 import { Transaction } from '../../../../core/models/transaction.model';
+import { CurrencyFormatPipe } from '../../../../shared/pipes/currency-format.pipe';
 
 @Component({
   selector: 'app-recent-activity',
+  standalone: true,
+  imports: [AsyncPipe, DatePipe, NgFor, NgIf, CurrencyFormatPipe],
   templateUrl: './recent-activity.component.html',
   styleUrls: ['./recent-activity.component.scss']
 })
