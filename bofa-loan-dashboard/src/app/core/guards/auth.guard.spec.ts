@@ -30,12 +30,32 @@ describe('authGuard', () => {
     expect(result).toBe(true);
   });
 
-  it('should redirect to login when not authenticated', () => {
+  it('should deny access and redirect to login when not authenticated', () => {
     authService.isAuthenticated.and.returnValue(false);
     const route = {} as ActivatedRouteSnapshot;
     const state = { url: '/dashboard' } as RouterStateSnapshot;
     const result = TestBed.runInInjectionContext(() => authGuard(route, state));
     expect(result).toBe(false);
-    expect(router.navigate).toHaveBeenCalledWith(['/login'], { queryParams: { returnUrl: '/dashboard' } });
+    expect(router.navigate).toHaveBeenCalledWith(['/login'], {
+      queryParams: { returnUrl: '/dashboard' }
+    });
+  });
+
+  it('should pass the return URL as query param', () => {
+    authService.isAuthenticated.and.returnValue(false);
+    const route = {} as ActivatedRouteSnapshot;
+    const state = { url: '/loans/LN-001' } as RouterStateSnapshot;
+    TestBed.runInInjectionContext(() => authGuard(route, state));
+    expect(router.navigate).toHaveBeenCalledWith(['/login'], {
+      queryParams: { returnUrl: '/loans/LN-001' }
+    });
+  });
+
+  it('should not navigate when authenticated', () => {
+    authService.isAuthenticated.and.returnValue(true);
+    const route = {} as ActivatedRouteSnapshot;
+    const state = { url: '/dashboard' } as RouterStateSnapshot;
+    TestBed.runInInjectionContext(() => authGuard(route, state));
+    expect(router.navigate).not.toHaveBeenCalled();
   });
 });
