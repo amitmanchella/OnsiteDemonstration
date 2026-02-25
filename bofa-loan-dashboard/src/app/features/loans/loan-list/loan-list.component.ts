@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { NgIf, NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../../core/services/api.service';
 import { Loan } from '../../../core/models/loan.model';
+import { DataTableComponent } from '../../../shared/components/data-table/data-table.component';
 
 @Component({
   selector: 'app-loan-list',
+  standalone: true,
+  imports: [NgIf, NgFor, FormsModule, RouterModule, DataTableComponent],
   templateUrl: './loan-list.component.html',
   styleUrls: ['./loan-list.component.scss']
 })
@@ -27,16 +32,16 @@ export class LoanListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.apiService.getLoans().subscribe(
-      (loans) => {
+    this.apiService.getLoans().subscribe({
+      next: (loans) => {
         this.loans = loans;
         this.loading = false;
       },
-      (error) => {
+      error: (error) => {
         console.error('Failed to load loans', error);
         this.loading = false;
       }
-    );
+    });
   }
 
   get filteredLoans(): Loan[] {

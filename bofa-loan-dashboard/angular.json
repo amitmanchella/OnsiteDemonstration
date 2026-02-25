@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "bofa-loan-dashboard:build:production"
+              "buildTarget": "bofa-loan-dashboard:build:production"
             },
             "development": {
-              "browserTarget": "bofa-loan-dashboard:build:development"
+              "buildTarget": "bofa-loan-dashboard:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "bofa-loan-dashboard:build"
+            "buildTarget": "bofa-loan-dashboard:build"
           }
         },
         "test": {

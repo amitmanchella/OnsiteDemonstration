@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { catchError, map, tap, pluck } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { User, LoginCredentials } from '../models/user.model';
 import { ApiResponse } from '../models/transaction.model';
 
@@ -24,7 +24,7 @@ export class AuthService {
           return user;
         }),
         catchError((err) => {
-          return throwError(err);
+          return throwError(() => err);
         })
       );
   }

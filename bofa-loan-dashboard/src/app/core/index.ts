@@ -14,6 +14,3 @@ export * from './guards/role.guard';
 
 // Interceptors
 export * from './interceptors/auth.interceptor';
-
-// Module
-export * from './core.module';

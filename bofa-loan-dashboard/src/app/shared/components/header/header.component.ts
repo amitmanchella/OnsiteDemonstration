@@ -5,12 +5,15 @@ import {
   AfterViewInit
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-header',
+  standalone: true,
+  imports: [AsyncPipe],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })

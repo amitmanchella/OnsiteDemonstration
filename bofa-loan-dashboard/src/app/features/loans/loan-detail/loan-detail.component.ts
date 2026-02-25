@@ -1,12 +1,16 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { NgIf, NgFor, DatePipe } from '@angular/common';
 import { switchMap } from 'rxjs/operators';
 import { ApiService } from '../../../core/services/api.service';
 import { Loan } from '../../../core/models/loan.model';
 import { Transaction } from '../../../core/models/transaction.model';
+import { CurrencyFormatPipe } from '../../../shared/pipes/currency-format.pipe';
 
 @Component({
   selector: 'app-loan-detail',
+  standalone: true,
+  imports: [NgIf, NgFor, DatePipe, RouterModule, CurrencyFormatPipe],
   templateUrl: './loan-detail.component.html',
   styleUrls: ['./loan-detail.component.scss']
 })
@@ -25,39 +29,39 @@ export class LoanDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.pipe(
       switchMap(params => this.apiService.getLoanById(params['id']))
-    ).subscribe(
-      (loan) => {
+    ).subscribe({
+      next: (loan) => {
         this.loan = loan;
         this.loading = false;
         this.loadTransactions(loan.id);
       },
-      (error) => {
+      error: (error) => {
         console.error('Failed to load loan', error);
         this.loading = false;
       }
-    );
+    });
   }
 
   loadTransactions(loanId: string): void {
-    this.apiService.getTransactions(loanId).subscribe(
-      (transactions) => {
+    this.apiService.getTransactions(loanId).subscribe({
+      next: (transactions) => {
         this.transactions = transactions;
       },
-      (error) => {
+      error: (error) => {
         console.error('Failed to load transactions', error);
       }
-    );
+    });
   }
 
   updateStatus(newStatus: string): void {
     if (!this.loan) return;
-    this.apiService.updateLoanStatus(this.loan.id, newStatus).subscribe(
-      (updatedLoan) => {
+    this.apiService.updateLoanStatus(this.loan.id, newStatus).subscribe({
+      next: (updatedLoan) => {
         this.loan = updatedLoan;
       },
-      (error) => {
+      error: (error) => {
         console.error('Failed to update status', error);
       }
-    );
+    });
   }
 }

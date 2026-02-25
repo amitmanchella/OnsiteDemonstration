@@ -5,18 +5,18 @@
   </div>
 
   <form [formGroup]="applicationForm" (ngSubmit)="onSubmit()" class="application-form">
-    <div class="error-message" *ngIf="errorMessage">
-      {{ errorMessage }}
-    </div>
+    @if (errorMessage) {
+      <div class="error-message">{{ errorMessage }}</div>
+    }
 
     <div class="form-section">
       <h3>Applicant Information</h3>
       <div class="form-group">
         <label>Applicant Name *</label>
         <input type="text" formControlName="applicantName" placeholder="Full name" />
-        <div class="validation-error" *ngIf="f['applicantName'].invalid && f['applicantName'].touched">
-          Name is required (min 2 characters)
-        </div>
+        @if (f['applicantName'].invalid && f['applicantName'].touched) {
+          <div class="validation-error">Name is required (min 2 characters)</div>
+        }
       </div>
     </div>
 
@@ -26,17 +26,17 @@
         <div class="form-group">
           <label>Loan Amount *</label>
           <input type="number" formControlName="amount" placeholder="e.g. 50000" />
-          <div class="validation-error" *ngIf="f['amount'].invalid && f['amount'].touched">
-            Amount required ($1,000 - $10,000,000)
-          </div>
+          @if (f['amount'].invalid && f['amount'].touched) {
+            <div class="validation-error">Amount required ($1,000 - $10,000,000)</div>
+          }
         </div>
 
         <div class="form-group">
           <label>Interest Rate (%) *</label>
           <input type="number" step="0.01" formControlName="interestRate" placeholder="e.g. 5.5" />
-          <div class="validation-error" *ngIf="f['interestRate'].invalid && f['interestRate'].touched">
-            Rate required (0% - 30%)
-          </div>
+          @if (f['interestRate'].invalid && f['interestRate'].touched) {
+            <div class="validation-error">Rate required (0% - 30%)</div>
+          }
         </div>
       </div>
 
@@ -44,20 +44,22 @@
         <div class="form-group">
           <label>Term (months) *</label>
           <input type="number" formControlName="term" placeholder="e.g. 36" />
-          <div class="validation-error" *ngIf="f['term'].invalid && f['term'].touched">
-            Term required (6 - 360 months)
-          </div>
+          @if (f['term'].invalid && f['term'].touched) {
+            <div class="validation-error">Term required (6 - 360 months)</div>
+          }
         </div>
 
         <div class="form-group">
           <label>Loan Type *</label>
           <select formControlName="type">
             <option value="">Select type</option>
-            <option *ngFor="let type of loanTypes" [value]="type.value">{{ type.label }}</option>
+            @for (type of loanTypes; track type.value) {
+              <option [value]="type.value">{{ type.label }}</option>
+            }
           </select>
-          <div class="validation-error" *ngIf="f['type'].invalid && f['type'].touched">
-            Type is required
-          </div>
+          @if (f['type'].invalid && f['type'].touched) {
+            <div class="validation-error">Type is required</div>
+          }
         </div>
       </div>
     </div>
@@ -67,9 +69,9 @@
       <div class="form-group">
         <label>Risk Score (0-100) *</label>
         <input type="number" formControlName="riskScore" placeholder="50" />
-        <div class="validation-error" *ngIf="f['riskScore'].invalid && f['riskScore'].touched">
-          Score required (0 - 100)
-        </div>
+        @if (f['riskScore'].invalid && f['riskScore'].touched) {
+          <div class="validation-error">Score required (0 - 100)</div>
+        }
       </div>
     </div>
 

@@ -16,19 +16,22 @@
     </select>
   </div>
 
-  <div class="loading" *ngIf="loading">
-    Loading loans...
-  </div>
+  @if (loading) {
+    <div class="loading">Loading loans...</div>
+  }
 
-  <app-data-table
-    *ngIf="!loading"
-    [data]="filteredLoans"
-    [columns]="columns"
-    [pageSize]="10"
-  >
-    <ng-template #rowActions let-loan>
-      <button class="btn-view" (click)="viewLoan(loan.id)">View</button>
-      <button class="btn-edit" *ngIf="loan.status === 'pending'">Edit</button>
-    </ng-template>
-  </app-data-table>
+  @if (!loading) {
+    <app-data-table
+      [data]="filteredLoans"
+      [columns]="columns"
+      [pageSize]="10"
+    >
+      <ng-template #rowActions let-loan>
+        <button class="btn-view" (click)="viewLoan(loan.id)">View</button>
+        @if (loan.status === 'pending') {
+          <button class="btn-edit">Edit</button>
+        }
+      </ng-template>
+    </app-data-table>
+  }
 </div>

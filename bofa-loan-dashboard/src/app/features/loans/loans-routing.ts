@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { LoanListComponent } from './loan-list/loan-list.component';
 import { LoanDetailComponent } from './loan-detail/loan-detail.component';
 import { LoanApplicationComponent } from './loan-application/loan-application.component';
 
-const routes: Routes = [
+export const loansRoutes: Routes = [
   {
     path: '',
     component: LoanListComponent
@@ -18,9 +17,3 @@ const routes: Routes = [
     component: LoanDetailComponent
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class LoansRoutingModule {}

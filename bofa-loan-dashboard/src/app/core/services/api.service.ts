@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
-import { catchError, map, pluck } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Loan } from '../models/loan.model';
 import { Transaction, ApiResponse } from '../models/transaction.model';
 
@@ -111,6 +111,6 @@ export class ApiService {
   }
 
   private handleError(error: any): Observable<never> {
-    return throwError(error.message || 'Server error');
+    return throwError(() => error.message || 'Server error');
   }
 }

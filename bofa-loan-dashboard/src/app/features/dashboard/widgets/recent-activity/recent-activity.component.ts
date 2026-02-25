@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { NgIf, AsyncPipe, DatePipe } from '@angular/common';
 import { ApiService } from '../../../../core/services/api.service';
 import { Transaction } from '../../../../core/models/transaction.model';
+import { CurrencyFormatPipe } from '../../../../shared/pipes/currency-format.pipe';
 
 @Component({
   selector: 'app-recent-activity',
+  standalone: true,
+  imports: [NgIf, AsyncPipe, DatePipe, CurrencyFormatPipe],
   templateUrl: './recent-activity.component.html',
   styleUrls: ['./recent-activity.component.scss']
 })
@@ -24,12 +28,12 @@ export class RecentActivityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.recentTransactions$.subscribe(
-      (transactions) => {},
-      (error) => {
+    this.recentTransactions$.subscribe({
+      next: (transactions) => {},
+      error: (error) => {
         this.error = error.message || 'Failed to load transactions';
         this.loading = false;
       }
-    );
+    });
   }
 }
