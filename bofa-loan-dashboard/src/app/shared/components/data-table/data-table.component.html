@@ -3,54 +3,67 @@
     <table class="data-table">
       <thead>
         <tr>
-          <th *ngFor="let column of columns">{{ column.label }}</th>
-          <th *ngIf="rowActionsTemplate">Actions</th>
+          @for (column of columns; track column.key) {
+            <th>{{ column.label }}</th>
+          }
+          @if (rowActionsTemplate) {
+            <th>Actions</th>
+          }
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of paginatedData; let i = index" [class.even]="i % 2 === 0">
-          <td *ngFor="let column of columns">
-            <ng-container *ngIf="column.type === 'status'">
-              <span [class]="'status-badge ' + getStatusClass(row[column.key])">
-                {{ row[column.key] }}
-              </span>
-            </ng-container>
-            <ng-container *ngIf="column.type !== 'status'">
-              {{ formatValue(row[column.key], column.type) }}
-            </ng-container>
-          </td>
-          <td *ngIf="rowActionsTemplate" class="actions-cell">
-            <ng-container *ngTemplateOutlet="rowActionsTemplate; context: { $implicit: row }"></ng-container>
-          </td>
-        </tr>
-        <tr *ngIf="paginatedData.length === 0">
-          <td [attr.colspan]="columns.length + (rowActionsTemplate ? 1 : 0)" class="no-data">
-            No data available
-          </td>
-        </tr>
+        @for (row of paginatedData; track row; let i = $index) {
+          <tr [class.even]="i % 2 === 0">
+            @for (column of columns; track column.key) {
+              <td>
+                @if (column.type === 'status') {
+                  <span [class]="'status-badge ' + getStatusClass(row[column.key])">
+                    {{ row[column.key] }}
+                  </span>
+                } @else {
+                  {{ formatValue(row[column.key], column.type) }}
+                }
+              </td>
+            }
+            @if (rowActionsTemplate) {
+              <td class="actions-cell">
+                <ng-container *ngTemplateOutlet="rowActionsTemplate; context: { $implicit: row }"></ng-container>
+              </td>
+            }
+          </tr>
+        }
+        @if (paginatedData.length === 0) {
+          <tr>
+            <td [attr.colspan]="columns.length + (rowActionsTemplate ? 1 : 0)" class="no-data">
+              No data available
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>
 
-  <div class="pagination" *ngIf="data.length > pageSize">
-    <button
-      class="pagination-button"
-      (click)="prevPage()"
-      [disabled]="currentPage === 1"
-    >
-      ← Previous
-    </button>
+  @if (data.length > pageSize) {
+    <div class="pagination">
+      <button
+        class="pagination-button"
+        (click)="prevPage()"
+        [disabled]="currentPage === 1"
+      >
+        ← Previous
+      </button>
 
-    <span class="pagination-info">
-      Page {{ currentPage }} of {{ totalPages }}
-    </span>
+      <span class="pagination-info">
+        Page {{ currentPage }} of {{ totalPages }}
+      </span>
 
-    <button
-      class="pagination-button"
-      (click)="nextPage()"
-      [disabled]="currentPage === totalPages"
-    >
-      Next →
-    </button>
-  </div>
+      <button
+        class="pagination-button"
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages"
+      >
+        Next →
+      </button>
+    </div>
+  }
 </div>

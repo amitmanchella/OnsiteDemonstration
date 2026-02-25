@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { ApiService } from '../../../core/services/api.service';
 import { Transaction } from '../../../core/models/transaction.model';
+import { DataTableComponent } from '../../../shared/components/data-table/data-table.component';
 
 @Component({
   selector: 'app-transaction-list',
+  standalone: true,
+  imports: [NgIf, FormsModule, RouterModule, DataTableComponent],
   templateUrl: './transaction-list.component.html',
   styleUrls: ['./transaction-list.component.scss']
 })
@@ -27,16 +33,16 @@ export class TransactionListComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.apiService.getTransactions().subscribe(
-      (transactions) => {
+    this.apiService.getTransactions().subscribe({
+      next: (transactions) => {
         this.transactions = transactions;
         this.loading = false;
       },
-      (error) => {
+      error: (error) => {
         console.error('Failed to load transactions', error);
         this.loading = false;
       }
-    );
+    });
   }
 
   applyDateFilter(): void {
@@ -45,8 +51,8 @@ export class TransactionListComponent implements OnInit {
       return;
     }
 
-    this.apiService.getTransactions().subscribe(
-      (transactions) => {
+    this.apiService.getTransactions().subscribe({
+      next: (transactions) => {
         this.transactions = transactions.filter(tx => {
           const txDate = new Date(tx.date);
           const start = this.dateFilter.start ? new Date(this.dateFilter.start) : null;
@@ -57,9 +63,9 @@ export class TransactionListComponent implements OnInit {
           return true;
         });
       },
-      (error) => {
+      error: (error) => {
         console.error('Failed to filter transactions', error);
       }
-    );
+    });
   }
 }

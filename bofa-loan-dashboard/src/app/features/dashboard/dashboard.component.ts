@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ApiService } from '../../core/services/api.service';
+import { LoanSummaryComponent } from './widgets/loan-summary/loan-summary.component';
+import { RecentActivityComponent } from './widgets/recent-activity/recent-activity.component';
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
+  imports: [LoanSummaryComponent, RecentActivityComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })

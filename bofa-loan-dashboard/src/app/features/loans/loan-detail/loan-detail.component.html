@@ -1,4 +1,5 @@
-<div class="loan-detail-page" *ngIf="!loading && loan">
+@if (!loading && loan) {
+  <div class="loan-detail-page">
   <div class="page-header">
     <h2>Loan Details</h2>
     <a routerLink="/loans" class="back-link">← Back to Loans</a>
@@ -43,16 +44,19 @@
         <span class="label">Current Status:</span>
         <span class="status-badge" [class]="'status-' + loan.status">{{ loan.status }}</span>
       </div>
-      <div class="info-row" *ngIf="loan.approvedBy">
+      @if (loan.approvedBy) {
+      <div class="info-row">
         <span class="label">Approved By:</span>
         <span class="value">{{ loan.approvedBy }}</span>
       </div>
+      }
       <div class="info-row">
         <span class="label">Risk Score:</span>
         <span class="risk-score" [class.high]="loan.riskScore > 70">{{ loan.riskScore }}</span>
       </div>
 
-      <div class="status-update" *ngIf="loan.status === 'pending'">
+      @if (loan.status === 'pending') {
+      <div class="status-update">
         <label>Update Status:</label>
         <select #statusSelect (change)="updateStatus(statusSelect.value)">
           <option value="">Select...</option>
@@ -60,12 +64,14 @@
           <option value="rejected">Reject</option>
         </select>
       </div>
+      }
     </div>
   </div>
 
   <div class="transactions-section">
     <h3>Transaction History</h3>
-    <table class="transactions-table" *ngIf="transactions.length">
+    @if (transactions.length) {
+    <table class="transactions-table">
       <thead>
         <tr>
           <th>Date</th>
@@ -76,7 +82,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let tx of transactions">
+        @for (tx of transactions; track tx.id) {
+        <tr>
           <td>{{ tx.date | date:'mediumDate' }}</td>
           <td>{{ tx.type }}</td>
           <td>{{ tx.description }}</td>
@@ -85,10 +92,17 @@
             <span class="tx-status" [class]="'tx-' + tx.status">{{ tx.status }}</span>
           </td>
         </tr>
+        }
       </tbody>
     </table>
-    <p class="no-data" *ngIf="!transactions.length">No transactions found</p>
+    }
+    @if (!transactions.length) {
+    <p class="no-data">No transactions found</p>
+    }
   </div>
-</div>
+  </div>
+}
 
-<div class="loading" *ngIf="loading">Loading loan details...</div>
+@if (loading) {
+  <div class="loading">Loading loan details...</div>
+}

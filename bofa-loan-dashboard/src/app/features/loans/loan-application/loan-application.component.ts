@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { NgIf, NgFor } from '@angular/common';
 import { ApiService } from '../../../core/services/api.service';
 
 @Component({
   selector: 'app-loan-application',
+  standalone: true,
+  imports: [NgIf, NgFor, ReactiveFormsModule, RouterModule],
   templateUrl: './loan-application.component.html',
   styleUrls: ['./loan-application.component.scss']
 })
@@ -45,16 +48,16 @@ export class LoanApplicationComponent implements OnInit {
     this.loading = true;
     this.errorMessage = '';
 
-    this.apiService.createLoan(this.applicationForm.value).subscribe(
-      (loan) => {
+    this.apiService.createLoan(this.applicationForm.value).subscribe({
+      next: (loan) => {
         this.loading = false;
         this.router.navigate(['/loans', loan.id]);
       },
-      (error) => {
+      error: (error) => {
         this.loading = false;
         this.errorMessage = error.message || 'Failed to create loan application';
       }
-    );
+    });
   }
 
   get f() {

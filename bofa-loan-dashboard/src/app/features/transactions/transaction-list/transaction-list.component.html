@@ -13,16 +13,19 @@
     </div>
   </div>
 
-  <div class="loading" *ngIf="loading">Loading transactions...</div>
+  @if (loading) {
+    <div class="loading">Loading transactions...</div>
+  }
 
-  <app-data-table
-    *ngIf="!loading"
-    [data]="transactions"
-    [columns]="columns"
-    [pageSize]="15"
-  >
-    <ng-template #rowActions let-transaction>
-      <button class="btn-view" [routerLink]="['/transactions', transaction.id]">View</button>
-    </ng-template>
-  </app-data-table>
+  @if (!loading) {
+    <app-data-table
+      [data]="transactions"
+      [columns]="columns"
+      [pageSize]="15"
+    >
+      <ng-template #rowActions let-transaction>
+        <button class="btn-view" [routerLink]="['/transactions', transaction.id]">View</button>
+      </ng-template>
+    </app-data-table>
+  }
 </div>

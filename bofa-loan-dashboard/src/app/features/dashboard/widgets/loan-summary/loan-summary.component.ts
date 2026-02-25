@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { NgIf } from '@angular/common';
 import { ApiService } from '../../../../core/services/api.service';
 import { Loan } from '../../../../core/models/loan.model';
+import { CurrencyFormatPipe } from '../../../../shared/pipes/currency-format.pipe';
 
 @Component({
   selector: 'app-loan-summary',
+  standalone: true,
+  imports: [NgIf, CurrencyFormatPipe],
   templateUrl: './loan-summary.component.html',
   styleUrls: ['./loan-summary.component.scss']
 })
@@ -27,16 +31,16 @@ export class LoanSummaryComponent implements OnInit {
       catchError((error) => {
         this.error = error.message || 'Failed to load loans';
         this.loading = false;
-        return throwError(error);
+        return throwError(() => error);
       })
     );
   }
 
   ngOnInit(): void {
-    this.loans$.subscribe(
-      (loans) => {},
-      (error) => {}
-    );
+    this.loans$.subscribe({
+      next: (loans) => {},
+      error: (error) => {}
+    });
   }
 
   private calculateStats(loans: Loan[]): void {
